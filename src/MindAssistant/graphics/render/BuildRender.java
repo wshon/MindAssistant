@@ -19,7 +19,7 @@ public class BuildRender<T extends Building> extends BaseRender<BaseBuildDrawer<
         Vars.state.teams.getActive().each(team -> {
             if (team.buildings == null) return;
             team.buildings.getObjects(buildings);
-            buildings.each(b -> validDrawers.each(d -> d.draw((T) b)));
+            buildings.each(b -> validDrawers.each(d -> d.draw(b)));
             buildings.clear();
         });
     }

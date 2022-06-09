@@ -21,7 +21,7 @@ public class TurretAmmo extends BaseBuildDrawer<ItemTurretBuild> {
 
     @Override
     public boolean enabled() {
-        return MindVars.settings.getBool("enableTurretAmmo");
+        return MindVars.settings.getBool("enableTurretAmmo", true);
     }
 
     @Override

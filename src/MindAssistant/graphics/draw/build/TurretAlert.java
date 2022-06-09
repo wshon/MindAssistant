@@ -5,6 +5,7 @@ import MindAssistant.graphics.draw.BaseBuildDrawer;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
 import arc.util.Tmp;
+import mindustry.gen.Building;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.world.blocks.defense.turrets.BaseTurret;
@@ -25,12 +26,12 @@ public class TurretAlert extends BaseBuildDrawer<BaseTurretBuild> {
 
     @Override
     public void loadSettings() {
-        turretAlertRadius = MindVars.settings.getInt("turretAlertRadius") * tilesize;
+        turretAlertRadius = MindVars.settings.getInt("turretAlertRadius", 10) * tilesize;
     }
 
     @Override
     public boolean enabled() {
-        return MindVars.settings.getBool("enableTurretAlert");
+        return MindVars.settings.getBool("enableTurretAlert", true);
     }
 
     @Override
@@ -39,7 +40,8 @@ public class TurretAlert extends BaseBuildDrawer<BaseTurretBuild> {
     }
 
     @Override
-    public void draw(BaseTurretBuild baseTurret) {
+    public void draw(Building building) {
+        if (!(building instanceof BaseTurretBuild baseTurret)) return;
         if (baseTurret.team == player.team()) return;
         if (!baseTurret.isValid()) return;
         if (!baseTurret.within(player, turretAlertRadius + baseTurret.range())) return;
@@ -58,7 +60,7 @@ public class TurretAlert extends BaseBuildDrawer<BaseTurretBuild> {
         doDraw(baseTurret);
     }
 
-    public void doDraw(BaseTurretBuild turret) {
+    private void doDraw(BaseTurretBuild turret) {
         Draw.z(Layer.overlayUI);
 
         Lines.stroke(1.2f);
