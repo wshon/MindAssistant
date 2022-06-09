@@ -21,7 +21,7 @@ import static mindustry.Vars.tilesize;
 /**
  * @author wangsen
  */
-public class TurretAlert extends BaseBuildDrawer<BaseTurretBuild> {
+public class TurretAlert extends BaseBuildDrawer {
     private int turretAlertRadius;
 
     @Override

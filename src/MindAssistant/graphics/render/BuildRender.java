@@ -8,11 +8,11 @@ import arc.util.Tmp;
 import mindustry.Vars;
 import mindustry.gen.Building;
 
-public class BuildRender<T extends Building> extends BaseRender<BaseBuildDrawer<T>> {
+public class BuildRender extends BaseRender<BaseBuildDrawer> {
     private final Seq<Building> buildings = new Seq<>();
 
     @Override
-    public void globalRender(Seq<BaseBuildDrawer<T>> validDrawers) {
+    public void globalRender(Seq<BaseBuildDrawer> validDrawers) {
         Vars.state.teams.getActive().each(team -> {
             if (team.buildings == null) return;
             team.buildings.getObjects(buildings);
@@ -22,7 +22,7 @@ public class BuildRender<T extends Building> extends BaseRender<BaseBuildDrawer<
     }
 
     @Override
-    public void cameraRender(Seq<BaseBuildDrawer<T>> validDrawers) {
+    public void cameraRender(Seq<BaseBuildDrawer> validDrawers) {
         Rect bounds = Core.camera.bounds(Tmp.r1);
         Vars.state.teams.getActive().each(teamData -> {
             if (teamData.buildings == null) return;

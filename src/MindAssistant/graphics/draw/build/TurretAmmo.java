@@ -19,7 +19,7 @@ import static mindustry.Vars.tilesize;
 /**
  * @author wangsen
  */
-public class TurretAmmo extends BaseBuildDrawer<ItemTurretBuild> {
+public class TurretAmmo extends BaseBuildDrawer {
 
     @Override
     public boolean enabled() {
