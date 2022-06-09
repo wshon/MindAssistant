@@ -49,11 +49,11 @@ public class TurretAlert extends BaseBuildDrawer<BaseTurretBuild> {
         if (baseTurret instanceof TurretBuild turret) {
             Turret block = (Turret) baseBlock;
             if (!turret.hasAmmo()) return;
-            if (!player.unit().isFlying() ? block.targetAir : block.targetGround) return;
+            if (!(player.unit().isFlying() ? block.targetAir : block.targetGround)) return;
         } else if (baseTurret instanceof TractorBeamBuild turret) {
             TractorBeamTurret block = (TractorBeamTurret) baseBlock;
             if (turret.power.status <= 0) return;
-            if (!player.unit().isFlying() ? block.targetAir : block.targetGround) return;
+            if (!(player.unit().isFlying() ? block.targetAir : block.targetGround)) return;
         } else {
             return;
         }

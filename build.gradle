@@ -4,7 +4,11 @@ version '1.0'
 
 targetCompatibility = 8
 //switch to JavaVersion.VERSION_17 to use Java 17 features; this requires adding jabel (see dependencies block below)
-sourceCompatibility = 8
+sourceCompatibility = JavaVersion.VERSION_17
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
 
 sourceSets.main.java.srcDirs = ["src"]
 

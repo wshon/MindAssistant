@@ -6,6 +6,9 @@ import mindustry.core.UI;
 import mindustry.graphics.Pal;
 import mindustry.ui.Bar;
 import mindustry.world.Block;
+import mindustry.world.blocks.distribution.Sorter;
+import mindustry.world.blocks.sandbox.ItemSource;
+import mindustry.world.blocks.sandbox.LiquidSource;
 import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.blocks.units.Reconstructor.ReconstructorBuild;
 import mindustry.world.blocks.units.UnitFactory;
@@ -13,7 +16,7 @@ import mindustry.world.blocks.units.UnitFactory;
 /**
  * @author wangsen
  */
-public class MoreBars {
+public class MoreBuildingBars {
     public static void addMoreBars(Block block) {
         block.bars.add("health", e -> new Bar(
                 () -> String.format("%.2f/%.2f(%d%%)", e.health, e.maxHealth, (int) (100 * e.healthf())),
@@ -23,13 +26,16 @@ public class MoreBars {
             block.bars.add("progress", (UnitFactory.UnitFactoryBuild e) -> new Bar(
                     () -> {
                         float ticks = e.currentPlan == -1 ? 0 : (1 - e.fraction()) * factory.plans.get(e.currentPlan).time / e.timeScale();
-                        return Core.bundle.get("bar.progress") + ":" + UI.formatTime(ticks) + "(" + (int) (100 * e.fraction()) + "%" + ")";
+                        return Core.bundle.get("bar.progress") + " : " + UI.formatTime(ticks) + "(" + (int) (100 * e.fraction()) + "%" + ")";
                     },
                     () -> Pal.ammo, e::fraction));
         }
         if (block instanceof Reconstructor reconstructor) {
             block.bars.add("progress", (ReconstructorBuild e) -> new Bar(
-                    () -> Core.bundle.get("bar.progress") + ":" + UI.formatTime((1 - e.fraction()) * reconstructor.constructTime / e.timeScale()) + "(" + (int) (100 * e.fraction()) + "%" + ")",
+                    () -> {
+                        float ticks = (1 - e.fraction()) * reconstructor.constructTime / e.timeScale();
+                        return Core.bundle.get("bar.progress") + " : " + UI.formatTime(ticks) + "(" + (int) (100 * e.fraction()) + "%" + ")";
+                    },
                     () -> Pal.ammo, e::fraction));
         }
     }

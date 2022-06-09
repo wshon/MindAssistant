@@ -8,9 +8,6 @@ import arc.util.Tmp;
 import mindustry.Vars;
 import mindustry.gen.Building;
 
-/**
- * @author wangsen
- */
 public class BuildRender<T extends Building> extends BaseRender<BaseBuildDrawer<T>> {
     private final Seq<Building> buildings = new Seq<>();
 
@@ -29,7 +26,7 @@ public class BuildRender<T extends Building> extends BaseRender<BaseBuildDrawer<
         Rect bounds = Core.camera.bounds(Tmp.r1);
         Vars.state.teams.getActive().each(teamData -> {
             if (teamData.buildings == null) return;
-            teamData.buildings.intersect(bounds, b -> validDrawers.each(d -> d.draw((T) b)));
+            teamData.buildings.intersect(bounds, b -> validDrawers.each(d -> d.draw(b)));
         });
     }
 }

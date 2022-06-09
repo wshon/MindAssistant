@@ -5,8 +5,10 @@ import MindAssistant.graphics.draw.BaseBuildDrawer;
 import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
 import arc.util.Reflect;
+import mindustry.gen.Building;
 import mindustry.graphics.Layer;
 import mindustry.type.Item;
+import mindustry.world.blocks.defense.turrets.BaseTurret;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.defense.turrets.ItemTurret.ItemEntry;
 import mindustry.world.blocks.defense.turrets.ItemTurret.ItemTurretBuild;
@@ -25,13 +27,14 @@ public class TurretAmmo extends BaseBuildDrawer<ItemTurretBuild> {
     }
 
     @Override
-    public void draw(ItemTurretBuild turret) {
+    public void draw(Building building) {
+        if (!(building instanceof ItemTurretBuild turret)) return;
         if (!turret.isValid()) return;
         if (!turret.ammo.any()) return;
         doDraw(turret);
     }
 
-    public void doDraw(ItemTurretBuild turret) {
+    private void doDraw(ItemTurretBuild turret) {
         ItemTurret block = (ItemTurret) turret.block;
         ItemEntry entry = (ItemEntry) turret.ammo.peek();
 

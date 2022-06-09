@@ -1,7 +1,8 @@
 package MindAssistant;
 
 import MindAssistant.io.MindSettings;
-import MindAssistant.world.MoreBars;
+import MindAssistant.ui.UI;
+import MindAssistant.world.MoreBuildingBars;
 import arc.struct.Seq;
 import mindustry.type.Item;
 import mindustry.world.Block;
@@ -14,13 +15,18 @@ import static mindustry.Vars.content;
  */
 public class MindVars {
     public static MindSettings settings;
+    public static UI ui;
+
     private static Seq<Block> allBlocks = new Seq<>();
-    private static Seq<Block> allVisibleBlocks = new Seq<>();
+    public static Seq<Block> allVisibleBlocks = new Seq<>();
     private static Seq<Item> allOreItems = new Seq<>();
 
     public static void init() {
         settings = new MindSettings();
+        ui = new UI();
+
         settings.init();
+        ui.init();
     }
 
     public static void loadContent() {
@@ -35,7 +41,7 @@ public class MindVars {
             if (block instanceof ItemBridge) {
                 block.allowConfigInventory = true;
             }
-            MoreBars.addMoreBars(block);
+            MoreBuildingBars.addMoreBars(block);
         }
     }
 }
