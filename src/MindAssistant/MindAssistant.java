@@ -1,18 +1,17 @@
-package example;
+package MindAssistant;
 
+import MindAssistant.graphics.Render;
 import arc.*;
 import arc.util.*;
-import mindustry.*;
-import mindustry.content.*;
+import mindustry.game.EventType;
 import mindustry.game.EventType.*;
-import mindustry.gen.*;
 import mindustry.mod.*;
 import mindustry.ui.dialogs.*;
 
-public class ExampleJavaMod extends Mod{
+public class MindAssistant extends Mod{
 
-    public ExampleJavaMod(){
-        Log.info("Loaded ExampleJavaMod constructor.");
+    public MindAssistant(){
+        Log.info("Loaded MindAssistant constructor.");
 
         //listen for game load event
         Events.on(ClientLoadEvent.class, e -> {
@@ -25,7 +24,16 @@ public class ExampleJavaMod extends Mod{
                 dialog.cont.button("I see", dialog::hide).size(100f, 50f);
                 dialog.show();
             });
+
+            MindVars.init();
+            Render.init();
         });
+        Events.run(Trigger.draw, Render::render);
+        Events.on(EventType.ContentInitEvent.class, e -> MindVars.loadContent());
+        Events.run(Trigger.update, this::update);
+    }
+
+    private void update() {
     }
 
     @Override

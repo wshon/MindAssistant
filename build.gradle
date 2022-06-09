@@ -18,6 +18,7 @@ ext{
     mindustryVersion = 'v131'
     jabelVersion = "0.7.0"
     sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
+    output = System.getenv("AppData") + "/mindustry/mods"
 }
 
 //java 8 backwards compatibility flag
@@ -33,7 +34,7 @@ dependencies{
 
     //you may uncomment this dependency to properly use Java 17 features while still targeting Java 8.
     //note that this fails on some systems for as-of-yet unknown reasons - if this happens to you, revert the changes
-    //annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
+    annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
 }
 
 task jarAndroid{
@@ -84,4 +85,10 @@ task deploy(type: Jar){
             delete "$buildDir/libs/${project.archivesBaseName}Android.jar"
         }
     }
+}
+
+task copyTask(type: Copy){
+    dependsOn jar
+    from "$buildDir/libs/${project.archivesBaseName}Desktop.jar"
+    into "$output/"
 }
