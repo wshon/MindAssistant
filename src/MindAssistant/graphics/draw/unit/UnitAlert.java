@@ -19,11 +19,6 @@ public class UnitAlert extends BaseUtilDrawer {
     }
 
     @Override
-    public boolean enabled() {
-        return MindVars.settings.getBool("enableUnitAlert", true);
-    }
-
-    @Override
     public boolean isValid() {
         return !player.unit().isNull();
     }

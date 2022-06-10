@@ -16,7 +16,7 @@ import java.util.Map;
 import static mindustry.Vars.modDirectory;
 
 /**
- * @author wangsen
+ * @author wshon
  */
 public class MindSettings {
     protected final static byte typeBool = 0, typeInt = 1, typeLong = 2, typeFloat = 3, typeString = 4;

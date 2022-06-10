@@ -1,9 +1,12 @@
-package MindAssistant.ui.override.infotable;
+package MindAssistant.ui.override;
 
 import MindAssistant.MindVars;
-import MindAssistant.ui.override.infotable.builder.BaseUnitBuilder;
-import MindAssistant.ui.override.infotable.builder.BaseBuildBuilder;
+import MindAssistant.ui.override.infotable.BaseInfoTable;
+import MindAssistant.ui.override.infotable.BuildInfoTable;
+import MindAssistant.ui.override.infotable.TileInfoTable;
+import MindAssistant.ui.override.infotable.UnitInfoTable;
 import MindAssistant.ui.override.infotable.builder.build.ItemBuilder;
+import MindAssistant.ui.override.infotable.builder.unit.StatusBuilder;
 import MindAssistant.ui.override.infotable.builder.unit.WeaponBuilder;
 import MindAssistant.ui.utils.ElementUtils;
 import arc.Core;
@@ -14,93 +17,12 @@ import arc.scene.ui.layout.Table;
 import arc.struct.Seq;
 import arc.util.Reflect;
 import mindustry.Vars;
-import mindustry.content.Blocks;
-import mindustry.ctype.UnlockableContent;
-import mindustry.entities.Units;
 import mindustry.game.EventType.UnlockEvent;
 import mindustry.game.EventType.WorldLoadEvent;
-import mindustry.game.Team;
-import mindustry.gen.Building;
-import mindustry.gen.Entityc;
-import mindustry.gen.Unit;
 import mindustry.world.Block;
-import mindustry.world.Tile;
 
 public class BetterInfoTable extends Table {
-    private final BaseInfoTable<?> unitInfo, buildInfo, tileInfo;
-    private static final Seq<BaseBuildBuilder> buildBuilders = Seq.with(new ItemBuilder());
-    private static final Seq<BaseUnitBuilder> unitBuilders = Seq.with(new WeaponBuilder());
-
-    private final Seq<BaseInfoTable<?>> infoTables = Seq.with(
-            unitInfo = new BaseInfoTable<Unit>() {
-                @Override
-                public Unit hovered() {
-                    return Units.closestOverlap(null, Core.input.mouseWorldX(), Core.input.mouseWorldY(), 5f, Entityc::isAdded);
-                }
-
-                @Override
-                protected void build() {
-                    hover.display(this);
-
-                    var builders = unitBuilders.select(unitBuilder -> unitBuilder.canBuild(hover));
-                    builders.each(builder -> builder.build(row(), hover));
-                }
-            },
-            buildInfo = new BaseInfoTable<Building>() {
-                @Override
-                public Building hovered() {
-                    Tile tile = Vars.world.tileWorld(Core.input.mouseWorldX(), Core.input.mouseWorldY());
-
-                    if (tile == null) return null;
-
-                    return tile.build;
-                }
-
-                @Override
-                protected void build() {
-                    Team team = hover.team;
-                    table(t -> {
-                        if (team != Vars.player.team()) {
-                            hover.team(Vars.player.team());
-                            hover.display(t);
-                            hover.team(team);
-                        } else {
-                            hover.display(t);
-                        }
-                    }).margin(5).growX();
-
-                    var builders = buildBuilders.select(buildBuilder -> buildBuilder.canBuild(hover));
-                    if (builders.any()) {
-                        for (var builder : builders) {
-                            builder.build(row(), hover);
-                        }
-                    }
-                }
-            },
-            tileInfo = new BaseInfoTable<Tile>() {
-                @Override
-                public Tile hovered() {
-                    return Vars.world.tileWorld(Core.input.mouseWorldX(), Core.input.mouseWorldY());
-                }
-
-                @Override
-                public void build() {
-                    displayContent(this, hover.floor());
-                    if (hover.overlay() != Blocks.air) displayContent(this, hover.overlay());
-                    if (hover.block().isStatic()) {
-                        displayContent(this, hover.block());
-                    }
-                }
-
-                private void displayContent(Table table, UnlockableContent content) {
-                    table.table(t -> {
-                        t.top().left().margin(5);
-                        t.image(content.uiIcon).size(Vars.iconMed);
-                        t.add(content.localizedName).padLeft(5);
-                    }).pad(5).growX();
-                }
-            }
-    );
+    private final Seq<BaseInfoTable<?>> infoTables;
 
     /* For reset override */
     private Table topTable;
@@ -121,6 +43,13 @@ public class BetterInfoTable extends Table {
 //        addSetting();
 
         setup();
+        infoTables = Seq.with(
+                new UnitInfoTable()
+                        .addBuilders(new StatusBuilder(), new WeaponBuilder()),
+                new BuildInfoTable()
+                        .addBuilders(new ItemBuilder()),
+                new TileInfoTable()
+        );
     }
 
 //    private void addSetting(){

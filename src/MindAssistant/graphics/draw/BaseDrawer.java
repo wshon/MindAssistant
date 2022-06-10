@@ -1,21 +1,21 @@
 package MindAssistant.graphics.draw;
 
+import MindAssistant.MindVars;
+
 /**
- * @author wangsen
+ * @author wshon
  */
 public abstract class BaseDrawer<T> {
     public void loadSettings() {
     }
 
     public boolean enabled() {
-        return false;
+        return MindVars.settings.getBool("enable" + this.getClass().getName(), true);
     }
 
     public boolean isValid() {
         return true;
     }
 
-    public void draw(T type) {
-
-    }
+    public abstract void draw(T type);
 }

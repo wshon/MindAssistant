@@ -3,12 +3,9 @@ package MindAssistant.graphics.draw;
 import mindustry.gen.Building;
 
 /**
- * @author wangsen
+ * @author wshon
  */
-public class BaseBuildDrawer extends BaseDrawer<Building> {
-
+public abstract class BaseBuildDrawer extends BaseDrawer<Building> {
     @Override
-    public void draw(Building type) {
-
-    }
+    public abstract void draw(Building building);
 }

@@ -8,7 +8,6 @@ import arc.util.Tmp;
 import mindustry.gen.Building;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
-import mindustry.world.blocks.defense.turrets.BaseTurret;
 import mindustry.world.blocks.defense.turrets.BaseTurret.BaseTurretBuild;
 import mindustry.world.blocks.defense.turrets.TractorBeamTurret;
 import mindustry.world.blocks.defense.turrets.TractorBeamTurret.TractorBeamBuild;
@@ -19,7 +18,7 @@ import static mindustry.Vars.player;
 import static mindustry.Vars.tilesize;
 
 /**
- * @author wangsen
+ * @author wshon
  */
 public class TurretAlert extends BaseBuildDrawer {
     private int turretAlertRadius;
@@ -30,34 +29,27 @@ public class TurretAlert extends BaseBuildDrawer {
     }
 
     @Override
-    public boolean enabled() {
-        return MindVars.settings.getBool("enableTurretAlert", true);
-    }
-
-    @Override
     public boolean isValid() {
         return !player.unit().isNull();
     }
 
     @Override
     public void draw(Building building) {
-        if (!(building instanceof BaseTurretBuild baseTurret)) return;
-        if (baseTurret.team == player.team()) return;
-        if (!baseTurret.isValid()) return;
-        if (!baseTurret.within(player, turretAlertRadius + baseTurret.range())) return;
-        BaseTurret baseBlock = (BaseTurret) baseTurret.block;
-        if (baseTurret instanceof TurretBuild turret) {
-            Turret block = (Turret) baseBlock;
+        if (!building.isValid()) return;
+        if (building.team == player.team()) return;
+        if (building instanceof TurretBuild turret) {
+            Turret block = (Turret) building.block;
             if (!turret.hasAmmo()) return;
             if (!(player.unit().isFlying() ? block.targetAir : block.targetGround)) return;
-        } else if (baseTurret instanceof TractorBeamBuild turret) {
-            TractorBeamTurret block = (TractorBeamTurret) baseBlock;
+            if (!building.within(player, turretAlertRadius + turret.range())) return;
+            doDraw(turret);
+        } else if (building instanceof TractorBeamBuild turret) {
+            TractorBeamTurret block = (TractorBeamTurret) building.block;
             if (turret.power.status <= 0) return;
             if (!(player.unit().isFlying() ? block.targetAir : block.targetGround)) return;
-        } else {
-            return;
+            if (!building.within(player, turretAlertRadius + turret.range())) return;
+            doDraw(turret);
         }
-        doDraw(baseTurret);
     }
 
     private void doDraw(BaseTurretBuild turret) {

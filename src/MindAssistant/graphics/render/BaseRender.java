@@ -4,7 +4,7 @@ import MindAssistant.graphics.draw.BaseDrawer;
 import arc.struct.Seq;
 
 /**
- * @author wangsen
+ * @author wshon
  */
 public abstract class BaseRender<T extends BaseDrawer<?>> {
 

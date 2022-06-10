@@ -8,7 +8,6 @@ import arc.util.Reflect;
 import mindustry.gen.Building;
 import mindustry.graphics.Layer;
 import mindustry.type.Item;
-import mindustry.world.blocks.defense.turrets.BaseTurret;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.defense.turrets.ItemTurret.ItemEntry;
 import mindustry.world.blocks.defense.turrets.ItemTurret.ItemTurretBuild;
@@ -17,19 +16,14 @@ import static mindustry.Vars.tilesize;
 
 
 /**
- * @author wangsen
+ * @author wshon
  */
 public class TurretAmmo extends BaseBuildDrawer {
 
     @Override
-    public boolean enabled() {
-        return MindVars.settings.getBool("enableTurretAmmo", true);
-    }
-
-    @Override
     public void draw(Building building) {
+        if (!building.isValid()) return;
         if (!(building instanceof ItemTurretBuild turret)) return;
-        if (!turret.isValid()) return;
         if (!turret.ammo.any()) return;
         doDraw(turret);
     }

@@ -2,7 +2,7 @@ package MindAssistant;
 
 import MindAssistant.io.MindSettings;
 import MindAssistant.ui.UI;
-import MindAssistant.world.MoreBuildingBars;
+import MindAssistant.ui.override.MoreBuildingBars;
 import arc.struct.Seq;
 import mindustry.type.Item;
 import mindustry.world.Block;
@@ -11,7 +11,7 @@ import mindustry.world.blocks.distribution.ItemBridge;
 import static mindustry.Vars.content;
 
 /**
- * @author wangsen
+ * @author wshon
  */
 public class MindVars {
     public static MindSettings settings;

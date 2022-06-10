@@ -5,5 +5,5 @@ import mindustry.gen.Building;
 /**
  * @author wshon
  */
-public abstract class BaseBuildBuilder extends BaseTableBuilder<Building> {
+public abstract class BaseBuildBuilder extends BaseBuilder<Building> {
 }

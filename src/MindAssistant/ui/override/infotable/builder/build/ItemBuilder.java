@@ -11,7 +11,7 @@ import mindustry.world.modules.ItemModule;
 /**
  * @author wshon
  */
-public class ItemTable extends BaseBuildBuilder {
+public class ItemBuilder extends BaseBuildBuilder {
 
     @Override
     public boolean canBuild(Building build) {
