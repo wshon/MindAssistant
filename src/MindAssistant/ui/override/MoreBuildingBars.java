@@ -14,7 +14,7 @@ import mindustry.world.blocks.units.Reconstructor.ReconstructorBuild;
 import mindustry.world.blocks.units.UnitFactory;
 
 /**
- * @author wangsen
+ * @author wshon
  */
 public class MoreBuildingBars {
     public static void addMoreBars(Block block) {
