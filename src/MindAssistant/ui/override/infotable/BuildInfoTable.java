@@ -33,7 +33,7 @@ public class BuildInfoTable extends BaseInfoTable<Building> {
         var builders = allBuilders.select(buildBuilder -> buildBuilder.canBuild(hover));
         if (builders.any()) {
             for (var builder : builders) {
-                builder.build(row(), hover);
+                builder.display(row(), hover);
             }
         }
     }

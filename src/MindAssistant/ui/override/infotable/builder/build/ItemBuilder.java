@@ -19,7 +19,7 @@ public class ItemBuilder extends BaseBuildBuilder {
     }
 
     @Override
-    public void build(Table table, Building build) {
+    public void display(Table table, Building build) {
         ItemModule items = build.items;
 
         table.table(t -> {

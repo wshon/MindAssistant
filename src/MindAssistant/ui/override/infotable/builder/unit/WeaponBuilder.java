@@ -25,7 +25,7 @@ public class WeaponBuilder extends BaseUnitBuilder {
     }
 
     @Override
-    public void build(Table table, Unit unit) {
+    public void display(Table table, Unit unit) {
         table.table(t -> {
             t.margin(5);
             t.table(Tex.whiteui, tt -> tt.add("Weapons")).color(Color.gray).growX().row();

@@ -7,6 +7,7 @@ import MindAssistant.ui.override.infotable.TileInfoTable;
 import MindAssistant.ui.override.infotable.UnitInfoTable;
 import MindAssistant.ui.override.infotable.builder.build.ItemBuilder;
 import MindAssistant.ui.override.infotable.builder.unit.StatusBuilder;
+import MindAssistant.ui.override.infotable.builder.unit.UnitInfoBuilder;
 import MindAssistant.ui.override.infotable.builder.unit.WeaponBuilder;
 import MindAssistant.ui.utils.ElementUtils;
 import arc.Core;
@@ -45,7 +46,7 @@ public class BetterInfoTable extends Table {
         setup();
         infoTables = Seq.with(
                 new UnitInfoTable()
-                        .addBuilders(new StatusBuilder(), new WeaponBuilder()),
+                        .addBuilders(new UnitInfoBuilder(), new StatusBuilder(), new WeaponBuilder()),
                 new BuildInfoTable()
                         .addBuilders(new ItemBuilder()),
                 new TileInfoTable()

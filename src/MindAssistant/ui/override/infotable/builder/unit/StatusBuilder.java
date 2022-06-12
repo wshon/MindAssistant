@@ -18,7 +18,7 @@ public class StatusBuilder extends BaseUnitBuilder {
     }
 
     @Override
-    public void build(Table table, Unit unit) {
+    public void display(Table table, Unit unit) {
         table.table(t -> {
             t.top().left().margin(5);
             Bits applied = unit.statusBits();
