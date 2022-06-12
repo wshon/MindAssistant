@@ -1,35 +1,24 @@
 package MindAssistant.graphics.draw.unit;
 
-import MindAssistant.MindVars;
 import MindAssistant.graphics.draw.BaseUtilDrawer;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
 import arc.util.Tmp;
 import mindustry.gen.Unit;
+import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 
-import static mindustry.Vars.*;
+import static mindustry.Vars.player;
 
-public class UnitAlert extends BaseUtilDrawer {
-    private int alertRadius;
-
-    @Override
-    public void loadSettings() {
-        alertRadius = MindVars.settings.getInt("unitAlertRadius", 10) * tilesize;
-    }
-
-    @Override
-    public boolean isValid() {
-        return !player.unit().isNull();
-    }
+/**
+ * @author wshon
+ */
+public class UnitRange extends BaseUtilDrawer {
 
     @Override
     public void draw(Unit unit) {
+        if (!unit.isValid()) return;
         if (unit.team == player.team()) return;
-        if (!unit.type.hasWeapons()) return;
-        if (state.rules.unitAmmo && unit.ammo <= 0f) return;
-        if (!(player.unit().isFlying() ? unit.type.targetAir : unit.type.targetGround)) return;
-        if (!unit.within(player, alertRadius + unit.type.maxRange)) return;
         doDraw(unit);
     }
 

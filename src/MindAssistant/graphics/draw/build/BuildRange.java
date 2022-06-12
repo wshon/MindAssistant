@@ -14,7 +14,7 @@ import static mindustry.Vars.player;
 /**
  * @author wshon
  */
-public class RangeShow extends BaseBuildDrawer {
+public class BuildRange extends BaseBuildDrawer {
 
     @Override
     public void draw(Building building) {
