@@ -6,6 +6,7 @@ import MindAssistant.graphics.draw.build.TurretAlert;
 import MindAssistant.graphics.draw.build.TurretAmmo;
 import MindAssistant.graphics.draw.unit.InfoBar;
 import MindAssistant.graphics.draw.unit.UnitAlert;
+import MindAssistant.graphics.draw.unit.UnitLogic;
 import MindAssistant.graphics.draw.unit.UnitRange;
 import MindAssistant.graphics.render.BaseRender;
 import MindAssistant.graphics.render.BuildRender;
@@ -25,7 +26,7 @@ public class Render {
                         .addCameraDrawers(new TurretAmmo(), new HealthBar())
                         .addHoveredDrawers(new BuildRange()),
                 new UnitRender()
-                        .addGlobalDrawers(new UnitAlert())
+                        .addGlobalDrawers(new UnitAlert(), new UnitLogic())
                         .addCameraDrawers(new InfoBar())
                         .addHoveredDrawers(new UnitRange())
         );

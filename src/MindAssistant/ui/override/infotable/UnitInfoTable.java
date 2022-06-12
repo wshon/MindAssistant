@@ -16,7 +16,7 @@ public class UnitInfoTable extends BaseInfoTable<Unit> {
 
     @Override
     protected void build() {
-//        hover.display(this);
+//        hover.display(this); // origin UnitInfo
         var builders = allBuilders.select(unitBuilder -> unitBuilder.canBuild(hover));
         builders.each(builder -> builder.display(row(), hover));
     }
