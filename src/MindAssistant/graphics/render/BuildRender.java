@@ -7,6 +7,7 @@ import arc.struct.Seq;
 import arc.util.Tmp;
 import mindustry.Vars;
 import mindustry.gen.Building;
+import mindustry.world.Tile;
 
 public class BuildRender extends BaseRender<BaseBuildDrawer> {
     private final Seq<Building> buildings = new Seq<>();
@@ -28,5 +29,12 @@ public class BuildRender extends BaseRender<BaseBuildDrawer> {
             if (teamData.buildings == null) return;
             teamData.buildings.intersect(bounds, b -> validDrawers.each(d -> d.draw(b)));
         });
+    }
+
+    @Override
+    public void hoveredRender(Seq<BaseBuildDrawer> validDrawers) {
+        Tile tile = Vars.world.tileWorld(Core.input.mouseWorldX(), Core.input.mouseWorldY());
+        if (tile == null || tile.build == null) return;
+        validDrawers.each(d -> d.draw(tile.build));
     }
 }

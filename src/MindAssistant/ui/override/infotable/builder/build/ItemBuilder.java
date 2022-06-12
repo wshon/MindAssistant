@@ -22,10 +22,11 @@ public class ItemBuilder extends BaseBuildBuilder {
     public void build(Table table, Building build) {
         ItemModule items = build.items;
 
-        table.table(Tex.pane, t -> {
+        table.table(t -> {
+            t.margin(5);
             t.table(Tex.whiteui, tt -> tt.add("Items")).color(Color.gray).growX().row();
 
-            t.table(itemsTable -> {
+            t.table(Tex.pane, itemsTable -> {
                 final int[] index = {0};
                 items.each(((item, amount) -> {
                     itemsTable.table(itemTable -> {

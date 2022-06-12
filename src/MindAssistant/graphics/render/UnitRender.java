@@ -23,4 +23,9 @@ public class UnitRender extends BaseRender<BaseUtilDrawer> {
             team.tree.intersect(bounds, b -> validDrawers.each(d -> d.draw(b)));
         });
     }
+
+    @Override
+    public void hoveredRender(Seq<BaseUtilDrawer> validDrawers) {
+
+    }
 }

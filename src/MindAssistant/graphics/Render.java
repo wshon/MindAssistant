@@ -3,6 +3,7 @@ package MindAssistant.graphics;
 import MindAssistant.graphics.draw.build.HealthBar;
 import MindAssistant.graphics.draw.build.TurretAlert;
 import MindAssistant.graphics.draw.build.TurretAmmo;
+import MindAssistant.graphics.draw.build.RangeShow;
 import MindAssistant.graphics.draw.unit.InfoBar;
 import MindAssistant.graphics.draw.unit.UnitAlert;
 import MindAssistant.graphics.render.BaseRender;
@@ -20,7 +21,8 @@ public class Render {
         ALL_RENDER.add(
                 new BuildRender()
                         .addGlobalDrawers(new TurretAlert())
-                        .addCameraDrawers(new TurretAmmo(), new HealthBar()),
+                        .addCameraDrawers(new TurretAmmo(), new HealthBar())
+                        .addHoveredDrawers(new RangeShow()),
                 new UnitRender()
                         .addGlobalDrawers(new UnitAlert())
                         .addCameraDrawers(new InfoBar())
