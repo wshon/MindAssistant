@@ -16,6 +16,8 @@ description: "A Mindustry Assistant mod."
 #the mod version
 version: 1.0
 
+hidden: true
+
 #the minimum game build required to run this mod
 minGameVersion: 129
 

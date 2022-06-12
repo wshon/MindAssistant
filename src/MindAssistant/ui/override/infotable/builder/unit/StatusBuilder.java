@@ -4,9 +4,7 @@ import MindAssistant.ui.override.infotable.builder.BaseUnitBuilder;
 import arc.scene.ui.Image;
 import arc.scene.ui.layout.Table;
 import arc.struct.Bits;
-import arc.util.Align;
 import mindustry.Vars;
-import mindustry.gen.Tex;
 import mindustry.gen.Unit;
 import mindustry.type.StatusEffect;
 
@@ -16,15 +14,13 @@ import mindustry.type.StatusEffect;
 public class StatusBuilder extends BaseUnitBuilder {
     @Override
     public boolean canBuild(Unit unit) {
-        return unit.type.hasWeapons() && !unit.disarmed;
+        return unit.statusBits().length() != 0;
     }
 
     @Override
     public void build(Table table, Unit unit) {
-        table.table( t -> {
+        table.table(t -> {
             t.top().left().margin(5);
-            float iconSize = Vars.mobile ? Vars.iconSmall : Vars.iconMed;
-
             Bits applied = unit.statusBits();
             int statusSize = applied.length();
             if (statusSize != 0) {
@@ -32,7 +28,7 @@ public class StatusBuilder extends BaseUnitBuilder {
                     if (applied.get(effect.id) && !effect.isHidden()) {
                         Image image = new Image(effect.fullIcon);
                         image.setColor(effect.color);
-                        t.image(image).size(Vars.iconMed);
+                        t.add(image).size(Vars.iconMed);
                         t.add(effect.localizedName).padLeft(5);
                     }
                 }
