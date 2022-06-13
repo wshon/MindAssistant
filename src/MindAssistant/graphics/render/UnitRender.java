@@ -6,6 +6,9 @@ import arc.math.geom.Rect;
 import arc.struct.Seq;
 import arc.util.Tmp;
 import mindustry.Vars;
+import mindustry.entities.Units;
+import mindustry.gen.Entityc;
+import mindustry.gen.Unit;
 
 public class UnitRender extends BaseRender<BaseUtilDrawer> {
     @Override
@@ -25,7 +28,9 @@ public class UnitRender extends BaseRender<BaseUtilDrawer> {
     }
 
     @Override
-    public void hoveredRender(Seq<BaseUtilDrawer> validDrawers) {
-
+    public void selectRender(Seq<BaseUtilDrawer> validDrawers) {
+        Unit unit = Units.closestOverlap(null, Core.input.mouseWorldX(), Core.input.mouseWorldY(), 5f, Entityc::isAdded);
+        if (unit == null) return;
+        validDrawers.each(d -> d.draw(unit));
     }
 }

@@ -16,6 +16,7 @@ import static mindustry.Vars.tilesize;
 
 
 /**
+ * Display turret ammo type
  * @author wshon
  */
 public class TurretAmmo extends BaseBuildDrawer {

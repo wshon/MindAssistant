@@ -32,7 +32,7 @@ public class BuildRender extends BaseRender<BaseBuildDrawer> {
     }
 
     @Override
-    public void hoveredRender(Seq<BaseBuildDrawer> validDrawers) {
+    public void selectRender(Seq<BaseBuildDrawer> validDrawers) {
         Tile tile = Vars.world.tileWorld(Core.input.mouseWorldX(), Core.input.mouseWorldY());
         if (tile == null || tile.build == null) return;
         validDrawers.each(d -> d.draw(tile.build));

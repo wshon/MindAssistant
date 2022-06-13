@@ -9,6 +9,7 @@ import mindustry.gen.Building;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.world.blocks.defense.turrets.BaseTurret.BaseTurretBuild;
+import mindustry.world.blocks.defense.turrets.PowerTurret.PowerTurretBuild;
 import mindustry.world.blocks.defense.turrets.TractorBeamTurret;
 import mindustry.world.blocks.defense.turrets.TractorBeamTurret.TractorBeamBuild;
 import mindustry.world.blocks.defense.turrets.Turret;
@@ -18,6 +19,8 @@ import static mindustry.Vars.player;
 import static mindustry.Vars.tilesize;
 
 /**
+ * Display enemy turrets range and type
+ *
  * @author wshon
  */
 public class TurretAlert extends BaseBuildDrawer {
@@ -39,7 +42,11 @@ public class TurretAlert extends BaseBuildDrawer {
         if (building.team == player.team()) return;
         if (building instanceof TurretBuild turret) {
             Turret block = (Turret) building.block;
-            if (!turret.hasAmmo()) return;
+            if (building instanceof PowerTurretBuild powerTurret) {
+                if (powerTurret.power.status <= 0) return;
+            } else {
+                if (!turret.hasAmmo()) return;
+            }
             if (!(player.unit().isFlying() ? block.targetAir : block.targetGround)) return;
             if (!building.within(player, turretAlertRadius + turret.range())) return;
             doDraw(turret);

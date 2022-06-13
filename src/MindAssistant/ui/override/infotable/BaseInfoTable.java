@@ -4,6 +4,7 @@ import MindAssistant.ui.override.infotable.builder.BaseBuilder;
 import arc.math.geom.Position;
 import arc.scene.ui.layout.Table;
 import arc.struct.Seq;
+import arc.util.Nullable;
 import mindustry.gen.Tex;
 
 /**
@@ -42,6 +43,7 @@ public abstract class BaseInfoTable<T extends Position> extends Table {
         return shouldAdd() && hover != lastHover;
     }
 
+    @Nullable
     public abstract T hovered();
 
     protected abstract void build();

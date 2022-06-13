@@ -10,6 +10,10 @@ import mindustry.graphics.Layer;
 
 import static mindustry.Vars.*;
 
+/**
+ * Display enemy unit range
+ * @author wshon
+ */
 public class UnitAlert extends BaseUtilDrawer {
     private int alertRadius;
 

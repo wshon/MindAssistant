@@ -1,16 +1,21 @@
 package MindAssistant;
 
 import MindAssistant.graphics.Render;
-import arc.*;
-import arc.util.*;
+import arc.Core;
+import arc.Events;
+import arc.util.Log;
+import arc.util.Time;
 import mindustry.game.EventType;
-import mindustry.game.EventType.*;
-import mindustry.mod.*;
-import mindustry.ui.dialogs.*;
+import mindustry.game.EventType.ClientLoadEvent;
+import mindustry.game.EventType.Trigger;
+import mindustry.mod.Mod;
+import mindustry.ui.dialogs.BaseDialog;
 
-public class MindAssistant extends Mod{
+import static MindAssistant.MindVars.playerAI;
 
-    public MindAssistant(){
+public class MindAssistant extends Mod {
+
+    public MindAssistant() {
         Log.info("Loaded MindAssistant constructor.");
 
         //listen for game load event
@@ -28,16 +33,22 @@ public class MindAssistant extends Mod{
             MindVars.init();
             Render.init();
         });
-        Events.run(Trigger.draw, Render::render);
         Events.on(EventType.ContentInitEvent.class, e -> MindVars.loadContent());
+        Events.run(Trigger.draw, this::draw);
         Events.run(Trigger.update, this::update);
     }
 
     private void update() {
+        playerAI.update();
+    }
+
+    private void draw() {
+        Render.render();
+        playerAI.draw();
     }
 
     @Override
-    public void loadContent(){
+    public void loadContent() {
         Log.info("Loading some example content.");
     }
 

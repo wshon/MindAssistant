@@ -9,6 +9,7 @@ import mindustry.gen.Building;
 import mindustry.graphics.Pal;
 
 /**
+ * Display health bar over building
  * @author wshon
  */
 public class HealthBar extends BaseBuildDrawer {

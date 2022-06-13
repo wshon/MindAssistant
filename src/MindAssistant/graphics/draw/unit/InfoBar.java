@@ -16,6 +16,7 @@ import mindustry.type.StatusEffect;
 import mindustry.world.blocks.payloads.Payload;
 
 /**
+ * Display info bar for Unit
  * @author wshon
  */
 public class InfoBar extends BaseUtilDrawer {

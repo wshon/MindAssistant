@@ -1,9 +1,6 @@
 package MindAssistant.graphics;
 
-import MindAssistant.graphics.draw.build.BuildRange;
-import MindAssistant.graphics.draw.build.HealthBar;
-import MindAssistant.graphics.draw.build.TurretAlert;
-import MindAssistant.graphics.draw.build.TurretAmmo;
+import MindAssistant.graphics.draw.build.*;
 import MindAssistant.graphics.draw.unit.InfoBar;
 import MindAssistant.graphics.draw.unit.UnitAlert;
 import MindAssistant.graphics.draw.unit.UnitLogic;
@@ -24,11 +21,11 @@ public class Render {
                 new BuildRender()
                         .addGlobalDrawers(new TurretAlert())
                         .addCameraDrawers(new TurretAmmo(), new HealthBar())
-                        .addHoveredDrawers(new BuildRange()),
+                        .addHoveredDrawers(new BuildRange(), new LogicLine()),
                 new UnitRender()
-                        .addGlobalDrawers(new UnitAlert(), new UnitLogic())
+                        .addGlobalDrawers(new UnitAlert())
                         .addCameraDrawers(new InfoBar())
-                        .addHoveredDrawers(new UnitRange())
+                        .addHoveredDrawers(new UnitRange(), new UnitLogic())
         );
         ALL_RENDER.each(BaseRender::loadEnabled);
         ALL_RENDER.each(BaseRender::loadSettings);

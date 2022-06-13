@@ -30,6 +30,12 @@ public class UnitLogic extends BaseUtilDrawer {
         }
 
         if (true) {
+            Draw.z(Layer.overlayUI);
+            Lines.dashLine(unit.x, unit.y, logicai.controller.x, logicai.controller.y, (int) (Mathf.len(logicai.controller.x - unit.x, logicai.controller.y - unit.y) / 8));
+            Draw.reset();
+        }
+
+        if (true) {
             Draw.z(Layer.flyingUnit + 0.1f);
 
             Lines.stroke(2f);

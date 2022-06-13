@@ -1,7 +1,6 @@
 package MindAssistant.graphics.render;
 
 import MindAssistant.graphics.draw.BaseDrawer;
-import arc.struct.FloatSeq;
 import arc.struct.Seq;
 
 /**
@@ -11,10 +10,10 @@ public abstract class BaseRender<T extends BaseDrawer<?>> {
 
     private final Seq<T> allGlobalDrawers = new Seq<>();
     private final Seq<T> allCameraDrawers = new Seq<>();
-    private final Seq<T> allHoveredDrawers = new Seq<>();
+    private final Seq<T> allSelectDrawers = new Seq<>();
     private Seq<T> enabledGlobalDrawers = new Seq<>();
     private Seq<T> enabledCameraDrawers = new Seq<>();
-    private Seq<T> enabledHoveredDrawers = new Seq<>();
+    private Seq<T> enabledSelectDrawers = new Seq<>();
 
     @SafeVarargs
     public final BaseRender<T> addGlobalDrawers(T... drawers) {
@@ -30,7 +29,7 @@ public abstract class BaseRender<T extends BaseDrawer<?>> {
 
     @SafeVarargs
     public final BaseRender<T> addHoveredDrawers(T... drawers) {
-        allHoveredDrawers.addAll(drawers);
+        allSelectDrawers.addAll(drawers);
         return this;
     }
 
@@ -39,24 +38,26 @@ public abstract class BaseRender<T extends BaseDrawer<?>> {
         if ((validDrawers = enabledGlobalDrawers.select(BaseDrawer::isValid)).any()) {
             globalRender(validDrawers);
         }
+        validDrawers.clear();
         if ((validDrawers = enabledCameraDrawers.select(BaseDrawer::isValid)).any()) {
             cameraRender(validDrawers);
         }
-        if ((validDrawers = enabledHoveredDrawers.select(BaseDrawer::isValid)).any()) {
-            hoveredRender(validDrawers);
+        validDrawers.clear();
+        if ((validDrawers = enabledSelectDrawers.select(BaseDrawer::isValid)).any()) {
+            selectRender(validDrawers);
         }
     }
 
     public void loadEnabled() {
         enabledGlobalDrawers = allGlobalDrawers.select(BaseDrawer::enabled);
         enabledCameraDrawers = allCameraDrawers.select(BaseDrawer::enabled);
-        enabledHoveredDrawers = allHoveredDrawers.select(BaseDrawer::enabled);
+        enabledSelectDrawers = allSelectDrawers.select(BaseDrawer::enabled);
     }
 
     public void loadSettings() {
         allGlobalDrawers.each(BaseDrawer::loadSettings);
         allCameraDrawers.each(BaseDrawer::loadSettings);
-        allHoveredDrawers.each(BaseDrawer::loadSettings);
+        allSelectDrawers.each(BaseDrawer::loadSettings);
     }
 
     /**
@@ -74,9 +75,9 @@ public abstract class BaseRender<T extends BaseDrawer<?>> {
     public abstract void cameraRender(Seq<T> validDrawers);
 
     /**
-     * Render on hovered
+     * Render on select
      *
      * @param validDrawers drawers enabled
      */
-    public abstract void hoveredRender(Seq<T> validDrawers);
+    public abstract void selectRender(Seq<T> validDrawers);
 }
