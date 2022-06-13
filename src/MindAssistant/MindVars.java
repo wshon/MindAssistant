@@ -1,6 +1,6 @@
 package MindAssistant;
 
-import MindAssistant.ai.PlayerAI;
+import MindAssistant.ai.SmartDesktopInput;
 import MindAssistant.io.MindSettings;
 import MindAssistant.ui.UI;
 import MindAssistant.ui.override.MoreBuildingBars;
@@ -22,13 +22,13 @@ public class MindVars {
     public static Seq<Block> allVisibleBlocks = new Seq<>();
     private static Seq<Item> allOreItems = new Seq<>();
 
-    public static PlayerAI playerAI = new PlayerAI();
+    public static SmartDesktopInput smartDesktopInput = new SmartDesktopInput();
 
     public static void init() {
         settings = new MindSettings();
         ui = new UI();
 
-        playerAI.init();
+        smartDesktopInput.init();
 
         settings.init();
         ui.init();

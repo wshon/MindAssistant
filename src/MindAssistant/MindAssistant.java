@@ -11,7 +11,7 @@ import mindustry.game.EventType.Trigger;
 import mindustry.mod.Mod;
 import mindustry.ui.dialogs.BaseDialog;
 
-import static MindAssistant.MindVars.playerAI;
+import static MindAssistant.MindVars.smartDesktopInput;
 
 public class MindAssistant extends Mod {
 
@@ -39,12 +39,12 @@ public class MindAssistant extends Mod {
     }
 
     private void update() {
-        playerAI.update();
+        smartDesktopInput.update();
     }
 
     private void draw() {
         Render.render();
-        playerAI.draw();
+        smartDesktopInput.draw();
     }
 
     @Override
