@@ -1,10 +1,7 @@
 package MindAssistant.graphics;
 
 import MindAssistant.graphics.draw.build.*;
-import MindAssistant.graphics.draw.unit.InfoBar;
-import MindAssistant.graphics.draw.unit.UnitAlert;
-import MindAssistant.graphics.draw.unit.UnitLogic;
-import MindAssistant.graphics.draw.unit.UnitRange;
+import MindAssistant.graphics.draw.unit.*;
 import MindAssistant.graphics.render.BaseRender;
 import MindAssistant.graphics.render.BuildRender;
 import MindAssistant.graphics.render.UnitRender;
@@ -23,7 +20,7 @@ public class Render {
                         .addCameraDrawers(new TurretAmmo(), new HealthBar())
                         .addHoveredDrawers(new BuildRange(), new LogicLine()),
                 new UnitRender()
-                        .addGlobalDrawers(new UnitAlert())
+                        .addGlobalDrawers(new UnitAlert(), new PlayerAim())
                         .addCameraDrawers(new InfoBar())
                         .addHoveredDrawers(new UnitRange(), new UnitLogic())
         );

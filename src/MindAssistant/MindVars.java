@@ -10,6 +10,7 @@ import mindustry.world.Block;
 import mindustry.world.blocks.distribution.ItemBridge;
 
 import static mindustry.Vars.content;
+import static mindustry.Vars.mobile;
 
 /**
  * @author wshon
@@ -21,14 +22,16 @@ public class MindVars {
     private static Seq<Block> allBlocks = new Seq<>();
     public static Seq<Block> allVisibleBlocks = new Seq<>();
     private static Seq<Item> allOreItems = new Seq<>();
-
-    public static SmartDesktopInput smartDesktopInput = new SmartDesktopInput();
+    public static SmartDesktopInput smartDesktopInput;
 
     public static void init() {
         settings = new MindSettings();
         ui = new UI();
 
-        smartDesktopInput.init();
+        if (!mobile) {
+            smartDesktopInput = new SmartDesktopInput();
+            smartDesktopInput.init();
+        }
 
         settings.init();
         ui.init();
