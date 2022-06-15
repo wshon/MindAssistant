@@ -2,6 +2,8 @@ package MindAssistant.graphics.draw.build;
 
 import MindAssistant.MindVars;
 import MindAssistant.graphics.draw.BaseBuildDrawer;
+import MindAssistant.ui.settings.SettingsMenuDialog.SettingsTable;
+import arc.func.Floatp;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
 import arc.util.Tmp;
@@ -15,6 +17,7 @@ import mindustry.world.blocks.defense.turrets.TractorBeamTurret.TractorBeamBuild
 import mindustry.world.blocks.defense.turrets.Turret;
 import mindustry.world.blocks.defense.turrets.Turret.TurretBuild;
 
+import static arc.Core.bundle;
 import static mindustry.Vars.player;
 import static mindustry.Vars.tilesize;
 
@@ -24,11 +27,11 @@ import static mindustry.Vars.tilesize;
  * @author wshon
  */
 public class TurretAlert extends BaseBuildDrawer {
-    private int turretAlertRadius;
+    private final Floatp turretAlertRadius = () -> MindVars.settings.getInt("turretAlertRadius") * tilesize;
 
     @Override
-    public void loadSettings() {
-        turretAlertRadius = MindVars.settings.getInt("turretAlertRadius", 10) * tilesize;
+    public void setPrefTo(SettingsTable setting) {
+        setting.sliderPref("turretAlertRadius", 10, 5, 50, 1, i -> bundle.format("mind-assistant.blocks", i));
     }
 
     @Override
@@ -48,13 +51,13 @@ public class TurretAlert extends BaseBuildDrawer {
                 if (!turret.hasAmmo()) return;
             }
             if (!(player.unit().isFlying() ? block.targetAir : block.targetGround)) return;
-            if (!building.within(player, turretAlertRadius + turret.range())) return;
+            if (!building.within(player, turretAlertRadius.get() + turret.range())) return;
             doDraw(turret);
         } else if (building instanceof TractorBeamBuild turret) {
             TractorBeamTurret block = (TractorBeamTurret) building.block;
             if (turret.power.status <= 0) return;
             if (!(player.unit().isFlying() ? block.targetAir : block.targetGround)) return;
-            if (!building.within(player, turretAlertRadius + turret.range())) return;
+            if (!building.within(player, turretAlertRadius.get() + turret.range())) return;
             doDraw(turret);
         }
     }

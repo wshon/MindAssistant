@@ -31,6 +31,7 @@ public class MindAssistant extends Mod {
 
             MindVars.init();
             Render.init();
+            MindVars.ui.init();
         });
         Events.on(EventType.ContentInitEvent.class, e -> MindVars.loadContent());
         Events.run(Trigger.draw, this::draw);

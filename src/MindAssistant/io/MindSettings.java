@@ -1,6 +1,7 @@
 package MindAssistant.io;
 
 import arc.files.Fi;
+import arc.struct.ObjectMap;
 import arc.util.Log;
 import arc.util.Strings;
 
@@ -20,6 +21,7 @@ import static mindustry.Vars.modDirectory;
  */
 public class MindSettings {
     protected final static byte typeBool = 0, typeInt = 1, typeLong = 2, typeFloat = 3, typeString = 4;
+    protected ObjectMap<String, Object> defaults = new ObjectMap<>();
     protected HashMap<String, Object> values = new HashMap<>();
     protected boolean modified;
     protected boolean hasErrored;
@@ -179,13 +181,18 @@ public class MindSettings {
 //        });
     }
 
-    void writeLog(String text) {
-        try {
-            Fi log = getDataDirectory().child("settings.log");
-            log.writeString("[" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date()) + "] " + text + "\n", true);
-        } catch (Throwable t) {
-            Log.err("Failed to write settings log", t);
+    public synchronized void defaults(Object... objects) {
+        for (int i = 0; i < objects.length; i += 2) {
+            defaults.put((String) objects[i], objects[i + 1]);
         }
+    }
+
+    public synchronized void clear() {
+        values.clear();
+    }
+
+    public synchronized Object getDefault(String name) {
+        return defaults.get(name);
     }
 
     public synchronized void put(String name, Object object) {
@@ -237,5 +244,14 @@ public class MindSettings {
 
     public String getString(String name, float def) {
         return (String) get(name, def);
+    }
+
+    void writeLog(String text) {
+        try {
+            Fi log = getDataDirectory().child("settings.log");
+            log.writeString("[" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date()) + "] " + text + "\n", true);
+        } catch (Throwable t) {
+            Log.err("Failed to write settings log", t);
+        }
     }
 }

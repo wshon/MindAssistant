@@ -1,4 +1,4 @@
-package MindAssistant.graphics.draw.unit;
+package MindAssistant.graphics.draw.unit.player;
 
 import MindAssistant.graphics.draw.BaseUtilDrawer;
 import arc.graphics.g2d.Draw;

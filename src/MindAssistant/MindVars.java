@@ -4,6 +4,7 @@ import MindAssistant.ai.SmartDesktopInput;
 import MindAssistant.io.MindSettings;
 import MindAssistant.ui.UI;
 import MindAssistant.ui.override.MoreBuildingBars;
+import MindAssistant.ui.settings.SettingsMenuDialog;
 import arc.struct.Seq;
 import mindustry.type.Item;
 import mindustry.world.Block;
@@ -17,6 +18,7 @@ import static mindustry.Vars.mobile;
  */
 public class MindVars {
     public static MindSettings settings;
+    public static SettingsMenuDialog settingsMenuDialog;
     public static UI ui;
 
     private static Seq<Block> allBlocks = new Seq<>();
@@ -34,7 +36,6 @@ public class MindVars {
         }
 
         settings.init();
-        ui.init();
     }
 
     public static void loadContent() {

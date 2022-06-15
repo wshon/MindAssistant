@@ -5,7 +5,6 @@ import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
 import arc.util.Tmp;
 import mindustry.gen.Unit;
-import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 
 import static mindustry.Vars.player;
