@@ -8,8 +8,9 @@ import arc.struct.Seq;
  * @author wshon
  */
 public abstract class BaseDrawer<T> {
-    private final String drawerName;
     public static Seq<BaseDrawer<?>> allDrawer = new Seq<>();
+
+    private final String drawerName;
 
     public BaseDrawer() {
         this.drawerName = this.getClass().getSimpleName();
@@ -21,9 +22,6 @@ public abstract class BaseDrawer<T> {
     }
 
     public void setPrefTo(SettingsTable setting) {
-    }
-
-    public void loadSettings() {
     }
 
     public boolean enabled() {

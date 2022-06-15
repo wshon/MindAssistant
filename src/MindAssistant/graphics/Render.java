@@ -1,7 +1,10 @@
 package MindAssistant.graphics;
 
 import MindAssistant.graphics.draw.build.*;
-import MindAssistant.graphics.draw.unit.*;
+import MindAssistant.graphics.draw.unit.InfoBar;
+import MindAssistant.graphics.draw.unit.UnitAlert;
+import MindAssistant.graphics.draw.unit.UnitLogic;
+import MindAssistant.graphics.draw.unit.UnitRange;
 import MindAssistant.graphics.draw.unit.player.PlayerAim;
 import MindAssistant.graphics.render.BaseRender;
 import MindAssistant.graphics.render.BuildRender;
@@ -25,8 +28,11 @@ public class Render {
                         .addCameraDrawers(new InfoBar())
                         .addHoveredDrawers(new UnitRange(), new UnitLogic())
         );
+        Render.loadEnabled();
+    }
+
+    public static void loadEnabled() {
         ALL_RENDER.each(BaseRender::loadEnabled);
-        ALL_RENDER.each(BaseRender::loadSettings);
     }
 
     public static void render() {

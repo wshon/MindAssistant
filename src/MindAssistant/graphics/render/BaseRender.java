@@ -54,12 +54,6 @@ public abstract class BaseRender<T extends BaseDrawer<?>> {
         enabledSelectDrawers = allSelectDrawers.select(BaseDrawer::enabled);
     }
 
-    public void loadSettings() {
-        allGlobalDrawers.each(BaseDrawer::loadSettings);
-        allCameraDrawers.each(BaseDrawer::loadSettings);
-        allSelectDrawers.each(BaseDrawer::loadSettings);
-    }
-
     /**
      * Render always
      *

@@ -2,24 +2,28 @@ package MindAssistant.graphics.draw.unit;
 
 import MindAssistant.MindVars;
 import MindAssistant.graphics.draw.BaseUtilDrawer;
+import MindAssistant.ui.settings.SettingsMenuDialog;
+import arc.func.Intp;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
 import arc.util.Tmp;
 import mindustry.gen.Unit;
 import mindustry.graphics.Layer;
 
+import static arc.Core.bundle;
 import static mindustry.Vars.*;
 
 /**
  * Display enemy unit range
+ *
  * @author wshon
  */
 public class UnitAlert extends BaseUtilDrawer {
-    private int alertRadius;
+    private final Intp alertRadius = () -> MindVars.settings.getInt("unitAlertRadius") * tilesize;
 
     @Override
-    public void loadSettings() {
-        alertRadius = MindVars.settings.getInt("unitAlertRadius", 10) * tilesize;
+    public void setPrefTo(SettingsMenuDialog.SettingsTable setting) {
+        setting.sliderPref("unitAlertRadius", 10, 5, 50, 1, i -> bundle.format("mind-assistant.blocks", i));
     }
 
     @Override
@@ -33,7 +37,7 @@ public class UnitAlert extends BaseUtilDrawer {
         if (!unit.type.hasWeapons()) return;
         if (state.rules.unitAmmo && unit.ammo <= 0f) return;
         if (!(player.unit().isFlying() ? unit.type.targetAir : unit.type.targetGround)) return;
-        if (!unit.within(player, alertRadius + unit.type.maxRange)) return;
+        if (!unit.within(player, alertRadius.get() + unit.type.maxRange)) return;
         doDraw(unit);
     }
 

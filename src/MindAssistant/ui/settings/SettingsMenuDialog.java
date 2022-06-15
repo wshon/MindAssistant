@@ -1,5 +1,7 @@
 package MindAssistant.ui.settings;
 
+import MindAssistant.MindVars;
+import MindAssistant.graphics.Render;
 import MindAssistant.graphics.draw.BaseDrawer;
 import arc.Core;
 import arc.func.Boolc;
@@ -17,11 +19,14 @@ import mindustry.ui.Styles;
 
 import static MindAssistant.MindVars.settings;
 import static arc.Core.bundle;
+import static mindustry.Vars.mobile;
 
 /**
+ * Set up enable status and running parameters for some features
+ *
  * @author wshon
  */
-public class SettingsMenuDialog extends Table {
+public class SettingsMenuDialog {
     private final String menu_name = "mind-assistant-settings";
     private final Table menu;
     private final Table prefs;
@@ -51,12 +56,19 @@ public class SettingsMenuDialog extends Table {
     }
 
     void addSettings() {
+        if (!mobile) {
+            game.checkPref("enableAutoShoot", true, (v) -> {
+                MindVars.smartDesktopInput.toggle(v);
+            });
+            game.checkPref("enableAutoTarget", false);
+        }
         BaseDrawer.allDrawer.each((d) -> {
-            game.checkPref("enable" + d.getDrawerName(), true);
+            game.checkPref("enable" + d.getDrawerName(), true, (v) -> {
+                Render.loadEnabled();
+            });
             d.setPrefTo(game);
         });
     }
-
 
     public static class SettingsTable extends Table {
         protected Seq<Setting> list = new Seq<>();

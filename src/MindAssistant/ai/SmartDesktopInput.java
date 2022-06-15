@@ -1,12 +1,12 @@
 package MindAssistant.ai;
 
+import MindAssistant.MindVars;
 import arc.Core;
 import arc.input.KeyCode;
 import arc.math.Angles;
 import arc.math.Interp;
 import arc.math.Mathf;
 import arc.math.geom.Vec2;
-import arc.util.Nullable;
 import arc.util.Tmp;
 import mindustry.Vars;
 import mindustry.entities.Predict;
@@ -16,6 +16,7 @@ import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
 import mindustry.input.Binding;
 import mindustry.input.DesktopInput;
+import mindustry.input.InputHandler;
 import mindustry.world.Tile;
 
 import static arc.Core.input;
@@ -23,19 +24,37 @@ import static mindustry.Vars.player;
 import static mindustry.Vars.state;
 
 /**
+ * Auto shoot and choose target
+ *
  * @author wshon
  */
 public class SmartDesktopInput extends DesktopInput {
-    public @Nullable
-    Teamc target;
+    public Teamc target;
     public Vec2 targetPos = new Vec2();
     public float crosshairScale;
-    public boolean autoTarget = false;
     public Teamc lastTarget;
     private Teamc selectTarget;
+    private InputHandler oldInput;
 
     public void init() {
+        oldInput = Vars.control.input;
+        enable();
+    }
+
+    public void enable() {
         Vars.control.input = this;
+    }
+
+    public void disable() {
+        Vars.control.input = oldInput;
+    }
+
+    public void toggle(boolean enable) {
+        if (enable) {
+            enable();
+        } else {
+            disable();
+        }
     }
 
     @Override
@@ -115,7 +134,7 @@ public class SmartDesktopInput extends DesktopInput {
         }
 
         //auto select target
-        if (target == null && autoTarget) {
+        if (target == null && MindVars.settings.getBool("enableAutoTarget", false)) {
             target = Units.closestTarget(unit.team, unit.x, unit.y, range, u -> u.checkTarget(unit.type.targetAir, unit.type.targetGround), u -> unit.type.targetGround);
         }
 
