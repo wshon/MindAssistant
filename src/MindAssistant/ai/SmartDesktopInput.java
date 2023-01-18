@@ -87,7 +87,7 @@ public class SmartDesktopInput extends DesktopInput {
         }
 
         float mouseAngle = intercept != null ? unit.angleTo(intercept) : Angles.mouseAngle(unit.x, unit.y);
-        boolean aimCursor = omni && player.shooting && unit.type.hasWeapons() && unit.type.faceTarget && !boosted && unit.type.rotateShooting;
+        boolean aimCursor = omni && player.shooting && unit.type.hasWeapons() && unit.type.faceTarget && !boosted;
 
         if (aimCursor) {
             unit.lookAt(mouseAngle);
@@ -126,11 +126,6 @@ public class SmartDesktopInput extends DesktopInput {
             if (Core.input.keyTap(Binding.dropCargo)) {
                 tryDropPayload();
             }
-        }
-
-        //update commander unit
-        if (Core.input.keyTap(Binding.command) && unit.type.commandLimit > 0) {
-            Call.unitCommand(player);
         }
 
         //auto select target

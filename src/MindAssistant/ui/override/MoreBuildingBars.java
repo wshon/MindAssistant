@@ -15,12 +15,12 @@ import mindustry.world.blocks.units.UnitFactory;
  */
 public class MoreBuildingBars {
     public static void addMoreBars(Block block) {
-        block.bars.add("health", e -> new Bar(
+        block.addBar("health", e -> new Bar(
                 () -> String.format("%.2f/%.2f(%d%%)", e.health, e.maxHealth, (int) (100 * e.healthf())),
                 () -> Pal.health, e::healthf).blink(Color.white));
 
         if (block instanceof UnitFactory factory) {
-            block.bars.add("progress", (UnitFactory.UnitFactoryBuild e) -> new Bar(
+            block.addBar("progress", (UnitFactory.UnitFactoryBuild e) -> new Bar(
                     () -> {
                         float ticks = e.currentPlan == -1 ? 0 : (1 - e.fraction()) * factory.plans.get(e.currentPlan).time / e.timeScale();
                         return Core.bundle.get("bar.progress") + " : " + UI.formatTime(ticks) + "(" + (int) (100 * e.fraction()) + "%" + ")";
@@ -28,7 +28,7 @@ public class MoreBuildingBars {
                     () -> Pal.ammo, e::fraction));
         }
         if (block instanceof Reconstructor reconstructor) {
-            block.bars.add("progress", (ReconstructorBuild e) -> new Bar(
+            block.addBar("progress", (ReconstructorBuild e) -> new Bar(
                     () -> {
                         float ticks = (1 - e.fraction()) * reconstructor.constructTime / e.timeScale();
                         return Core.bundle.get("bar.progress") + " : " + UI.formatTime(ticks) + "(" + (int) (100 * e.fraction()) + "%" + ")";

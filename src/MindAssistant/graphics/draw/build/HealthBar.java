@@ -10,6 +10,7 @@ import mindustry.graphics.Pal;
 
 /**
  * Display health bar over building
+ *
  * @author wshon
  */
 public class HealthBar extends BaseBuildDrawer {
@@ -35,7 +36,7 @@ public class HealthBar extends BaseBuildDrawer {
 
         Lines.stroke(healthBarStroke, Pal.health);
         Draw.alpha(healthBarAlpha);
-        Lines.line(startX, startY, startX + (endX - startX) * build.healthf(), startY);
+        Lines.line(startX, startY, startX + (endX - startX) * Math.max(build.healthf(), 0), startY);
 
         Draw.reset();
     }

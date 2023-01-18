@@ -3,9 +3,12 @@ package MindAssistant.graphics.draw.unit;
 import MindAssistant.graphics.draw.BaseUtilDrawer;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
+import arc.math.Mathf;
 import arc.struct.Bits;
 import arc.struct.Seq;
+import arc.util.Structs;
 import mindustry.Vars;
+import mindustry.content.Liquids;
 import mindustry.entities.abilities.Ability;
 import mindustry.entities.abilities.ForceFieldAbility;
 import mindustry.gen.PayloadUnit;
@@ -45,7 +48,7 @@ public class InfoBar extends BaseUtilDrawer {
 
             Lines.stroke(healthBarStroke, Pal.health);
             Draw.alpha(healthBarAlpha);
-            Lines.line(startX, startY, startX + (endX - startX) * unit.healthf(), startY);
+            Lines.line(startX, startY, startX + (endX - startX) * Math.max(unit.healthf(), 0), startY);
 
             startY += backBarStroke;
         }
@@ -54,8 +57,8 @@ public class InfoBar extends BaseUtilDrawer {
 
         /* Shield Bar */
         var abilities = unit.abilities;
-        if (abilities.size > 0) {
-            Ability ability = abilities.find(a -> a instanceof ForceFieldAbility);
+        if (abilities.length > 0) {
+            Ability ability = Structs.find(abilities, a -> a instanceof ForceFieldAbility);
 
             if (ability instanceof ForceFieldAbility forceFieldAbility) {
                 Lines.stroke(healthBarStroke, Pal.shield);
@@ -68,6 +71,15 @@ public class InfoBar extends BaseUtilDrawer {
 
 
             Draw.color();
+        }
+
+        if(!Mathf.zero(unit.drownTime)){
+            Lines.stroke(healthBarStroke, Pal.shield);
+            Draw.alpha(healthBarAlpha);
+
+            Lines.line(startX, startY, startX + (endX - startX) * (1f - unit.drownTime), startY);
+
+            startY += healthBarStroke + 0.5f;
         }
 
         /* Status */

@@ -22,8 +22,8 @@ public class UnitRender extends BaseRender<BaseUtilDrawer> {
     public void cameraRender(Seq<BaseUtilDrawer> validDrawers) {
         Rect bounds = Core.camera.bounds(Tmp.r1);
         Vars.state.teams.getActive().each(team -> {
-            if (team.tree == null) return;
-            team.tree.intersect(bounds, b -> validDrawers.each(d -> d.draw(b)));
+            if (team.unitTree == null) return;
+            team.unitTree.intersect(bounds, b -> validDrawers.each(d -> d.draw(b)));
         });
     }
 
