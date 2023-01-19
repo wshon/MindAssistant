@@ -15,7 +15,7 @@ import static mindustry.Vars.player;
  * Display the hovered building effective range
  * @author wshon
  */
-public class BuildRange extends BaseBuildDrawer {
+public class BuildingRangeInspect extends BaseBuildDrawer {
 
     @Override
     public void draw(Building building) {

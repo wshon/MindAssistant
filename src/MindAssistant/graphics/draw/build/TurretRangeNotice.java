@@ -26,7 +26,7 @@ import static mindustry.Vars.tilesize;
  *
  * @author wshon
  */
-public class TurretAlert extends BaseBuildDrawer {
+public class TurretRangeNotice extends BaseBuildDrawer {
     private final Floatp turretAlertRadius = () -> MindVars.settings.getInt("turretAlertRadius") * tilesize;
 
     @Override

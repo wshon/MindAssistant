@@ -11,9 +11,11 @@ import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 
 /**
+ * Display player aim position
+ *
  * @author wshon
  */
-public class PlayerAim extends BaseUtilDrawer {
+public class PlayerAimNotice extends BaseUtilDrawer {
     @Override
     public void draw(Unit unit) {
         if (!unit.isValid()) return;

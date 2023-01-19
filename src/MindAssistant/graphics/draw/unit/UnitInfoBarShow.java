@@ -8,7 +8,6 @@ import arc.struct.Bits;
 import arc.struct.Seq;
 import arc.util.Structs;
 import mindustry.Vars;
-import mindustry.content.Liquids;
 import mindustry.entities.abilities.Ability;
 import mindustry.entities.abilities.ForceFieldAbility;
 import mindustry.gen.PayloadUnit;
@@ -22,7 +21,7 @@ import mindustry.world.blocks.payloads.Payload;
  * Display info bar for Unit
  * @author wshon
  */
-public class InfoBar extends BaseUtilDrawer {
+public class UnitInfoBarShow extends BaseUtilDrawer {
     public static float healthBarStroke = 1.7f, healthBarAlpha = 0.85f;
     public static float backBarStroke = healthBarStroke + 1.3f, backBarAlpha = healthBarAlpha - 0.25f;
 

@@ -1,6 +1,5 @@
 package MindAssistant.graphics.draw.build;
 
-import MindAssistant.MindVars;
 import MindAssistant.graphics.draw.BaseBuildDrawer;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
@@ -13,7 +12,7 @@ import mindustry.graphics.Pal;
  *
  * @author wshon
  */
-public class HealthBar extends BaseBuildDrawer {
+public class BuildingHealthBarShow extends BaseBuildDrawer {
     public static float healthBarStroke = 1.7f, healthBarAlpha = 0.85f;
     public static float backBarStroke = healthBarStroke + 1.3f, backBarAlpha = healthBarAlpha - 0.25f;
 

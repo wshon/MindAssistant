@@ -10,7 +10,12 @@ import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.logic.Ranged;
 
-public class PlayerRange extends BaseUtilDrawer {
+/**
+ * Display player range
+ *
+ * @author wshon
+ */
+public class PlayerRangeShow extends BaseUtilDrawer {
 
     @Override
     public void draw(Unit unit) {

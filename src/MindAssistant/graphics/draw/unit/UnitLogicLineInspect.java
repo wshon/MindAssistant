@@ -9,7 +9,7 @@ import mindustry.gen.Unit;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 
-public class UnitLogic extends BaseUtilDrawer {
+public class UnitLogicLineInspect extends BaseUtilDrawer {
 
     @Override
     public void draw(Unit unit) {

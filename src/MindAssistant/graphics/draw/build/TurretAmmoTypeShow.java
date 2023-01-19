@@ -20,13 +20,12 @@ import mindustry.world.blocks.defense.turrets.TractorBeamTurret.TractorBeamBuild
 
 import static mindustry.Vars.tilesize;
 
-
 /**
  * Display turret ammo type
  *
  * @author wshon
  */
-public class TurretAmmo extends BaseBuildDrawer {
+public class TurretAmmoTypeShow extends BaseBuildDrawer {
 
     @Override
     public void draw(Building building) {

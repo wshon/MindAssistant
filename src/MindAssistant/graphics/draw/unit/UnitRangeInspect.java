@@ -4,7 +4,9 @@ import MindAssistant.graphics.draw.BaseUtilDrawer;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
 import arc.util.Tmp;
+import mindustry.core.Renderer;
 import mindustry.gen.Unit;
+import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 
 import static mindustry.Vars.player;
@@ -12,7 +14,7 @@ import static mindustry.Vars.player;
 /**
  * @author wshon
  */
-public class UnitRange extends BaseUtilDrawer {
+public class UnitRangeInspect extends BaseUtilDrawer {
 
     @Override
     public void draw(Unit unit) {
@@ -21,11 +23,12 @@ public class UnitRange extends BaseUtilDrawer {
         doDraw(unit);
     }
 
-    private void doDraw(Unit unit) {
+    protected void doDraw(Unit unit) {
         Draw.z(Layer.overlayUI);
 
-        Lines.stroke(1.2f, unit.team.color);
-        Lines.dashCircle(unit.x, unit.y, unit.range());
+        Draw.alpha(0.5f);
+        Lines.stroke(1.2f);
+        Drawf.dashCircle(unit.x, unit.y, unit.range(), unit.team.color);
 
         float dst = unit.dst(player);
         if (dst > unit.range()) {

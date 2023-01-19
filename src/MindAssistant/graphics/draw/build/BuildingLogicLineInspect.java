@@ -11,9 +11,11 @@ import mindustry.graphics.Layer;
 import mindustry.world.blocks.logic.LogicBlock;
 
 /**
+ * Display building's login line
+ *
  * @author wshon
  */
-public class LogicLine extends BaseBuildDrawer {
+public class BuildingLogicLineInspect extends BaseBuildDrawer {
 
     @Override
     public void draw(Building building) {

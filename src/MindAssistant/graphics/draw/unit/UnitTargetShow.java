@@ -4,16 +4,13 @@ import MindAssistant.graphics.draw.BaseUtilDrawer;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
 import arc.math.Mathf;
-import arc.util.Tmp;
 import mindustry.gen.Unit;
 import mindustry.graphics.Layer;
-
-import static mindustry.Vars.player;
 
 /**
  * @author wshon
  */
-public class UnitTarget extends BaseUtilDrawer {
+public class UnitTargetShow extends BaseUtilDrawer {
 
     @Override
     public void draw(Unit unit) {

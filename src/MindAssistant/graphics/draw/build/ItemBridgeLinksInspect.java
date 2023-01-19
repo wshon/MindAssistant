@@ -15,7 +15,12 @@ import mindustry.world.Tile;
 import mindustry.world.blocks.distribution.ItemBridge;
 import mindustry.world.blocks.distribution.ItemBridge.ItemBridgeBuild;
 
-public class ItemBridgeLinks extends BaseBuildDrawer {
+/**
+ * Display item bridge links
+ *
+ * @author wshon
+ */
+public class ItemBridgeLinksInspect extends BaseBuildDrawer {
     private static final Seq<ItemBridgeBuild> currentBridges = new Seq<>();
 
 
