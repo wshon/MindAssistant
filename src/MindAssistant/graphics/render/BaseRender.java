@@ -16,20 +16,32 @@ public abstract class BaseRender<T extends BaseDrawer<?>> {
     private Seq<T> enabledSelectDrawers = new Seq<>();
 
     @SafeVarargs
-    public final BaseRender<T> addGlobalDrawers(T... drawers) {
+    public final BaseRender<T> addGlobalDrawer(T... drawers) {
         allGlobalDrawers.addAll(drawers);
         return this;
     }
-
-    @SafeVarargs
-    public final BaseRender<T> addCameraDrawers(T... drawers) {
-        allCameraDrawers.addAll(drawers);
+    public final BaseRender<T> addGlobalDrawer(T drawer) {
+        allGlobalDrawers.add(drawer);
         return this;
     }
 
     @SafeVarargs
-    public final BaseRender<T> addHoveredDrawers(T... drawers) {
+    public final BaseRender<T> addCameraDrawer(T... drawers) {
+        allCameraDrawers.addAll(drawers);
+        return this;
+    }
+    public final BaseRender<T> addCameraDrawer(T drawer) {
+        allCameraDrawers.add(drawer);
+        return this;
+    }
+
+    @SafeVarargs
+    public final BaseRender<T> addHoveredDrawer(T... drawers) {
         allSelectDrawers.addAll(drawers);
+        return this;
+    }
+    public final BaseRender<T> addHoveredDrawer(T drawer) {
+        allSelectDrawers.add(drawer);
         return this;
     }
 

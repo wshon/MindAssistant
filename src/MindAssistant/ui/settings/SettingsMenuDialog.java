@@ -2,14 +2,17 @@ package MindAssistant.ui.settings;
 
 import MindAssistant.MindVars;
 import MindAssistant.graphics.Render;
-import MindAssistant.graphics.draw.BaseDrawer;
+import MindAssistant.modules.Modules;
 import arc.Core;
 import arc.func.Boolc;
 import arc.func.Cons;
 import arc.graphics.Color;
+import arc.graphics.g2d.TextureRegion;
 import arc.math.geom.Vec2;
 import arc.scene.Element;
 import arc.scene.event.Touchable;
+import arc.scene.style.Drawable;
+import arc.scene.style.TextureRegionDrawable;
 import arc.scene.ui.*;
 import arc.scene.ui.layout.Table;
 import arc.struct.Seq;
@@ -30,13 +33,13 @@ public class SettingsMenuDialog {
     private final String menu_name = "mind-assistant-settings";
     private final Table menu;
     private final Table prefs;
-    private final SettingsTable game;
+    private final SettingsTable st;
 
     public SettingsMenuDialog() {
         menu = Reflect.get(Vars.ui.settings, "menu");
         prefs = Reflect.get(Vars.ui.settings, "prefs");
 
-        game = new SettingsTable();
+        st = new SettingsTable();
 
         menu.update(() -> {
             if (menu.find(menu_name) == null) {
@@ -49,25 +52,19 @@ public class SettingsMenuDialog {
 
     private void addMenu() {
         menu.row();
-        menu.button("MindAssistant", Styles.cleart, () -> {
+        menu.button("@mind-assistant.setting.title", new TextureRegionDrawable(new TextureRegion(MindVars.MOD.iconTexture)), Styles.cleart, Vars.iconMed, () -> {
             prefs.clearChildren();
-            prefs.add(game);
-        }).name(menu_name);
+            prefs.add(st);
+        }).name(menu_name).with(b -> ((Image)b.getChildren().get(1)).setScaling(Scaling.fit)).marginLeft(8f).row();;
     }
 
     void addSettings() {
         if (!mobile) {
-            game.checkPref("enableAutoShoot", true, (v) -> {
-                MindVars.smartDesktopInput.toggle(v);
-            });
-            game.checkPref("enableAutoTarget", false);
+            st.checkPref("ai.AutoShoot.enable", true, (v) -> MindVars.smartDesktopInput.toggle(v));
+            st.checkPref("ai.AutoTarget.enable", false);
         }
-        BaseDrawer.allDrawer.each((d) -> {
-            game.checkPref("enable" + d.getDrawerName(), true, (v) -> {
-                Render.loadEnabled();
-            });
-            d.setPrefTo(game);
-        });
+        Render.loadSettings(st);
+        Modules.loadSettings(st);
     }
 
     public static class SettingsTable extends Table {
@@ -153,7 +150,8 @@ public class SettingsMenuDialog {
         public abstract static class Setting {
             public String name;
             public String title;
-            public @Nullable String description;
+            public @Nullable
+            String description;
 
             public Setting(String name) {
                 this.name = name;

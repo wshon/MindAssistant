@@ -6,17 +6,18 @@ import MindAssistant.ui.UI;
 import MindAssistant.ui.override.MoreBuildingBars;
 import MindAssistant.ui.settings.SettingsMenuDialog;
 import arc.struct.Seq;
+import mindustry.mod.Mods;
 import mindustry.type.Item;
 import mindustry.world.Block;
 import mindustry.world.blocks.distribution.ItemBridge;
 
-import static mindustry.Vars.content;
-import static mindustry.Vars.mobile;
+import static mindustry.Vars.*;
 
 /**
  * @author wshon
  */
 public class MindVars {
+    public static Mods.LoadedMod MOD;
     public static MindSettings settings;
     public static SettingsMenuDialog settingsMenuDialog;
     public static UI ui;
@@ -27,6 +28,7 @@ public class MindVars {
     public static SmartDesktopInput smartDesktopInput;
 
     public static void init() {
+        MOD = mods.getMod(MindAssistant.class);
         settings = new MindSettings();
         ui = new UI();
 

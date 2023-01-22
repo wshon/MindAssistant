@@ -1,6 +1,7 @@
 package MindAssistant.graphics.draw;
 
 import MindAssistant.MindVars;
+import MindAssistant.graphics.Render;
 import MindAssistant.ui.settings.SettingsMenuDialog.SettingsTable;
 import arc.struct.Seq;
 
@@ -21,11 +22,12 @@ public abstract class BaseDrawer<T> {
         return drawerName;
     }
 
-    public void setPrefTo(SettingsTable setting) {
+    public void setPrefTo(SettingsTable st) {
+        st.checkPref("drawer." + this.getDrawerName() + ".enable", true, (v) -> Render.loadEnabled());
     }
 
     public boolean enabled() {
-        return MindVars.settings.getBool("enable" + this.drawerName, true);
+        return MindVars.settings.getBool("drawer." + this.getDrawerName() + ".enable", true);
     }
 
     public boolean isValid() {
@@ -33,4 +35,8 @@ public abstract class BaseDrawer<T> {
     }
 
     public abstract void draw(T type);
+
+    public static void loadSettings(SettingsTable st) {
+        BaseDrawer.allDrawer.each((d) -> d.setPrefTo(st));
+    }
 }

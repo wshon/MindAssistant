@@ -14,11 +14,12 @@ import static mindustry.Vars.*;
  * @author wshon
  */
 public class UnitRangeAlert extends UnitRangeInspect {
-    private final Intp alertRadius = () -> MindVars.settings.getInt("unitAlertRadius") * tilesize;
+    private final Intp alertRadius = () -> MindVars.settings.getInt("drawer.unitAlertRadius.range") * tilesize;
 
     @Override
     public void setPrefTo(SettingsMenuDialog.SettingsTable setting) {
-        setting.sliderPref("unitAlertRadius", 10, 5, 50, 1, i -> bundle.format("mind-assistant.blocks", i));
+        super.setPrefTo(setting);
+        setting.sliderPref("drawer.unitAlertRadius.range", 10, 5, 50, 1, i -> bundle.format("mind-assistant.blocks", i));
     }
 
     @Override

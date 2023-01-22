@@ -27,11 +27,12 @@ import static mindustry.Vars.tilesize;
  * @author wshon
  */
 public class TurretRangeNotice extends BaseBuildDrawer {
-    private final Floatp turretAlertRadius = () -> MindVars.settings.getInt("turretAlertRadius") * tilesize;
+    private final Floatp turretAlertRadius = () -> MindVars.settings.getInt("drawer.turretAlertRadius.range") * tilesize;
 
     @Override
     public void setPrefTo(SettingsTable setting) {
-        setting.sliderPref("turretAlertRadius", 10, 5, 50, 1, i -> bundle.format("mind-assistant.blocks", i));
+        super.setPrefTo(setting);
+        setting.sliderPref("drawer.turretAlertRadius.range", 10, 5, 50, 1, i -> bundle.format("mind-assistant.blocks", i));
     }
 
     @Override

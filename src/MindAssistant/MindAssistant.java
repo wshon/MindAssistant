@@ -1,6 +1,7 @@
 package MindAssistant;
 
 import MindAssistant.graphics.Render;
+import MindAssistant.modules.Modules;
 import arc.Core;
 import arc.Events;
 import arc.util.Log;
@@ -31,6 +32,7 @@ public class MindAssistant extends Mod {
 
             MindVars.init();
             Render.init();
+            Modules.init();
             MindVars.ui.init();
         });
         Events.on(EventType.ContentInitEvent.class, e -> MindVars.loadContent());
