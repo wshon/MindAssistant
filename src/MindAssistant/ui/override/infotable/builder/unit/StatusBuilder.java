@@ -2,11 +2,16 @@ package MindAssistant.ui.override.infotable.builder.unit;
 
 import MindAssistant.ui.override.infotable.builder.BaseUnitBuilder;
 import arc.scene.ui.Image;
+import arc.scene.ui.Label;
 import arc.scene.ui.layout.Table;
 import arc.struct.Bits;
+import arc.util.Align;
 import mindustry.Vars;
+import mindustry.core.UI;
 import mindustry.gen.Unit;
 import mindustry.type.StatusEffect;
+
+import static mindustry.Vars.player;
 
 /**
  * @author wshon
@@ -28,7 +33,10 @@ public class StatusBuilder extends BaseUnitBuilder {
                     if (applied.get(effect.id) && !effect.isHidden()) {
                         Image image = new Image(effect.fullIcon);
                         image.setColor(effect.color);
-                        t.add(image).size(Vars.iconMed);
+                        var time = unit.getDuration(effect);
+                        Label label = new Label(() -> Float.isInfinite(time) ? "[red]∞" : UI.formatTime(time));
+                        label.setAlignment(Align.bottom);
+                        t.stack(image, label).size(Vars.iconMed);
                         t.add(effect.localizedName).padLeft(5);
                     }
                 }
