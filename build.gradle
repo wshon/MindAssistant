@@ -17,6 +17,7 @@ ext{
     mindustryVersion = 'v140.1'
     jabelVersion = "93fde537c7"
     sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
+    output = System.getenv("AppData") + "/mindustry/mods"
 }
 
 //java 8 backwards compatibility flag
@@ -91,4 +92,10 @@ task deploy(type: Jar){
             delete "$buildDir/libs/${project.archivesBaseName}Android.jar"
         }
     }
+}
+//0512-67973182
+task copyTask(type: Copy){
+    dependsOn jar
+    from "$buildDir/libs/${project.archivesBaseName}Desktop.jar"
+    into "$output/"
 }

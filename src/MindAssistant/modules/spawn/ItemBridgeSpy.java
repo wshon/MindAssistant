@@ -12,7 +12,7 @@ import arc.util.Reflect;
 import arc.util.Time;
 import arc.util.Tmp;
 import mindustry.Vars;
-import mindustry.game.EventType;
+import mindustry.game.EventType.*;
 import mindustry.gen.BufferItem;
 import mindustry.gen.Building;
 import mindustry.gen.TimeItem;
@@ -26,7 +26,6 @@ import mindustry.world.blocks.distribution.BufferedItemBridge.BufferedItemBridge
 import mindustry.world.blocks.distribution.ItemBridge.ItemBridgeBuild;
 import mindustry.world.blocks.distribution.Junction;
 import mindustry.world.blocks.distribution.Junction.JunctionBuild;
-import mindustry.world.blocks.distribution.Router;
 import mindustry.world.blocks.distribution.Router.RouterBuild;
 
 import java.lang.reflect.Field;
@@ -39,24 +38,22 @@ public class ItemBridgeSpy extends BaseModule {
 
     @Override
     public void load() {
-        Events.on(EventType.ClientLoadEvent.class, e -> {
-            try {
-                itemBridgeBufferField = BufferedItemBridge.BufferedItemBridgeBuild.class.getDeclaredField("buffer");
-                bufferField = ItemBuffer.class.getDeclaredField("buffer");
-                indexField = ItemBuffer.class.getDeclaredField("index");
+        try {
+            itemBridgeBufferField = BufferedItemBridgeBuild.class.getDeclaredField("buffer");
+            bufferField = ItemBuffer.class.getDeclaredField("buffer");
+            indexField = ItemBuffer.class.getDeclaredField("index");
 
-                itemBridgeBufferField.setAccessible(true);
-                bufferField.setAccessible(true);
-                indexField.setAccessible(true);
-            } catch (NoSuchFieldException e0) {
-                throw new RuntimeException(e0);
-            }
-        });
-        Events.on(EventType.WorldLoadEvent.class, e -> {
+            itemBridgeBufferField.setAccessible(true);
+            bufferField.setAccessible(true);
+            indexField.setAccessible(true);
+        } catch (NoSuchFieldException e0) {
+            throw new RuntimeException(e0);
+        }
+        Events.on(WorldLoadEvent.class, e -> {
             tiles = new QuadTree<>(Tmp.r1.set(0, 0, Vars.world.unitWidth(), Vars.world.unitHeight()));
             Vars.world.tiles.eachTile(tile -> tiles.insert(tile));
         });
-        Events.run(EventType.Trigger.draw, () -> {
+        Events.run(Trigger.draw, () -> {
             if (isEnabled()) {
                 this.draw();
             }
@@ -170,7 +167,7 @@ public class ItemBridgeSpy extends BaseModule {
         }
     }
 
-    public static void drawHiddenItem(Junction.JunctionBuild junction) {
+    public static void drawHiddenItem(JunctionBuild junction) {
         DirectionalItemBuffer buffer = junction.buffer;
         Junction block = (Junction) junction.block;
         int capacity = block.capacity;
@@ -197,7 +194,7 @@ public class ItemBridgeSpy extends BaseModule {
         }
     }
 
-    public static void drawHiddenItem(Router.RouterBuild router) {
+    public static void drawHiddenItem(RouterBuild router) {
         Item item = router.lastItem;
         if (item != null) {
             Draw.rect(item.uiIcon, router.x, router.y, 4f, 4f);
