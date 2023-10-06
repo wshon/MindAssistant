@@ -2,14 +2,8 @@ apply plugin: "java"
 
 version '1.0'
 
-targetCompatibility = 17
-//switch to JavaVersion.VERSION_17 to use Java 17 features; this requires adding jabel (see dependencies block below)
-sourceCompatibility = JavaVersion.VERSION_17
-
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
-
+targetCompatibility = 8
+sourceCompatibility = JavaVersion.VERSION_16
 sourceSets.main.java.srcDirs = ["src"]
 
 repositories{
@@ -19,26 +13,34 @@ repositories{
 
 ext{
     //the build number that this mod is made for
-    mindustryVersion = 'v141.2'
-    jabelVersion = "0.7.0"
+    mindustryVersion = 'v140.1'
+    jabelVersion = "93fde537c7"
     sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
     output = System.getenv("AppData") + "/mindustry/mods"
 }
 
-////java 8 backwards compatibility flag
-//allprojects{
-//    tasks.withType(JavaCompile){
-//        options.compilerArgs.addAll(['--release', '8'])
-//    }
-//}
+//java 8 backwards compatibility flag
+allprojects{
+    tasks.withType(JavaCompile){
+        options.encoding = "UTF-8"
+        options.compilerArgs.addAll(['--release', '8'])
+    }
+}
 
 dependencies{
     compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
     compileOnly "com.github.Anuken.MindustryJitpack:core:$mindustryVersion"
 
-    //you may uncomment this dependency to properly use Java 17 features while still targeting Java 8.
-    //note that this fails on some systems for as-of-yet unknown reasons - if this happens to you, revert the changes
-    //annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
+    annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
+}
+
+//force arc version
+configurations.all{
+    resolutionStrategy.eachDependency { details ->
+        if(details.requested.group == 'com.github.Anuken.Arc'){
+            details.useVersion "$mindustryVersion"
+        }
+    }
 }
 
 task jarAndroid{
@@ -90,6 +92,7 @@ task deploy(type: Jar){
         }
     }
 }
+
 
 task copyTask(type: Copy){
     dependsOn jar

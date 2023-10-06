@@ -8,7 +8,11 @@ public class Modules {
     private static final Seq<BaseModule> ALL_MODULE = new Seq<>();
 
     public static void init() {
-        ALL_MODULE.add(new WaveSpawnerModule(), new MinimapSpawnerModule(), new WidelyZoomModule());
+        ALL_MODULE.add(new WaveSpawnerModule());
+        ALL_MODULE.add(new MinimapSpawnerModule());
+        ALL_MODULE.add(new WidelyZoomModule());
+        ALL_MODULE.add(new ItemBridgeSpy());
+
         Modules.load();
     }
 
