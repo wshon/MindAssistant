@@ -65,6 +65,7 @@ public class SettingsMenuDialog {
         }
         Render.loadSettings(st);
         Modules.loadSettings(st);
+        st.rebuild();
     }
 
     public static class SettingsTable extends Table {
@@ -80,7 +81,7 @@ public class SettingsMenuDialog {
 
         public void pref(Setting setting) {
             list.add(setting);
-            rebuild();
+//            rebuild();
         }
 
         public SliderSetting sliderPref(String name, int def, int min, int max, mindustry.ui.dialogs.SettingsMenuDialog.StringProcessor s) {
@@ -91,44 +92,44 @@ public class SettingsMenuDialog {
             SliderSetting res;
             list.add(res = new SliderSetting(name, def, min, max, step, s));
             settings.defaults(name, def);
-            rebuild();
+            settings.put(name, def, true, false);
             return res;
         }
 
         public void checkPref(String name, boolean def) {
             list.add(new CheckSetting(name, def, null));
             settings.defaults(name, def);
-            rebuild();
+            settings.put(name, def, true, false);
         }
 
         public void checkPref(String name, boolean def, Boolc changed) {
             list.add(new CheckSetting(name, def, changed));
             settings.defaults(name, def);
-            rebuild();
+            settings.put(name, def, true, false);
         }
 
         public void textPref(String name, String def) {
             list.add(new TextSetting(name, def, null));
             settings.defaults(name, def);
-            rebuild();
+            settings.put(name, def, true, false);
         }
 
         public void textPref(String name, String def, Cons<String> changed) {
             list.add(new TextSetting(name, def, changed));
             settings.defaults(name, def);
-            rebuild();
+            settings.put(name, def, true, false);
         }
 
         public void areaTextPref(String name, String def) {
             list.add(new AreaTextSetting(name, def, null));
             settings.defaults(name, def);
-            rebuild();
+            settings.put(name, def, true, false);
         }
 
         public void areaTextPref(String name, String def, Cons<String> changed) {
             list.add(new AreaTextSetting(name, def, changed));
             settings.defaults(name, def);
-            rebuild();
+            settings.put(name, def, true, false);
         }
 
         public void rebuild() {
@@ -143,6 +144,7 @@ public class SettingsMenuDialog {
                     if (setting.name == null || setting.title == null) continue;
                     settings.put(setting.name, settings.getDefault(setting.name));
                 }
+                settings.saveValues();
                 rebuild();
             }).margin(14).width(240f).pad(6);
         }
@@ -200,6 +202,7 @@ public class SettingsMenuDialog {
 
                 box.changed(() -> {
                     settings.put(name, box.isChecked());
+                    settings.saveValues();
                     if (changed != null) {
                         changed.get(box.isChecked());
                     }
@@ -239,6 +242,7 @@ public class SettingsMenuDialog {
 
                 slider.changed(() -> {
                     settings.put(name, (int) slider.getValue());
+                    settings.saveValues();
                     value.setText(sp.get((int) slider.getValue()));
                 });
 
@@ -267,6 +271,7 @@ public class SettingsMenuDialog {
 
                 field.changed(() -> {
                     settings.put(name, field.getText());
+                    settings.saveValues();
                     if (changed != null) {
                         changed.get(field.getText());
                     }
@@ -297,6 +302,7 @@ public class SettingsMenuDialog {
 
                 area.changed(() -> {
                     settings.put(name, area.getText());
+                    settings.saveValues();
                     if (changed != null) {
                         changed.get(area.getText());
                     }
